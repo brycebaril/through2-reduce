@@ -16,7 +16,7 @@ test("ctor", function (t) {
     t.equals(result[0], 40, "Summed")
   }
 
-  spigot([2, 4, 8, 2, 6, 8, 10], {objectMode: true})
+  spigot({objectMode: true}, [2, 4, 8, 2, 6, 8, 10])
     .pipe(new Sum({objectMode: true}))
     .pipe(concat(combine))
 })
@@ -33,7 +33,7 @@ test("ctor initial value", function (t) {
     t.equals(result[0], 45, "Summed")
   }
 
-  spigot([2, 4, 8, 2, 6, 8, 10], {objectMode: true})
+  spigot({objectMode: true}, [2, 4, 8, 2, 6, 8, 10])
     .pipe(new Sum({objectMode: true}))
     .pipe(concat(combine))
 })
@@ -50,7 +50,7 @@ test("ctor options initial value", function (t) {
     t.equals(result[0], 45, "Summed")
   }
 
-  spigot([2, 4, 8, 2, 6, 8, 10], {objectMode: true})
+  spigot({objectMode: true}, [2, 4, 8, 2, 6, 8, 10])
     .pipe(new Sum())
     .pipe(concat(combine))
 })
@@ -68,7 +68,7 @@ test("use index & initial", function (t) {
     t.equals(result[0], 5.25, "Averaged")
   }
 
-  spigot([2, 4, 8, 2, 6, 8, 10, 2], {objectMode: true})
+  spigot({objectMode: true}, [2, 4, 8, 2, 6, 8, 10, 2])
     .pipe(mean)
     .pipe(concat(combine))
 })
@@ -88,7 +88,7 @@ test("object", function (t) {
     t.deepEquals(result[0], {time: 8, widgets: 5.25}, "Averaged")
   }
 
-  spigot([
+  spigot({objectMode: true}, [
     {time: 1, widgets: 2},
     {time: 2, widgets: 4},
     {time: 3, widgets: 8},
@@ -97,7 +97,7 @@ test("object", function (t) {
     {time: 6, widgets: 8},
     {time: 7, widgets: 10},
     {time: 8, widgets: 2},
-    ], {objectMode: true})
+    ])
     .pipe(mean)
     .pipe(concat(combine))
 })

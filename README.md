@@ -3,6 +3,9 @@ through2-reduce
 
 [![NPM](https://nodei.co/npm/through2-reduce.png)](https://nodei.co/npm/through2-reduce/)
 
+[![david-dm](https://david-dm.org/brycebaril/through2-reduce.png)](https://david-dm.org/brycebaril/through2-reduce/)
+[![david-dm](https://david-dm.org/brycebaril/through2-reduce/dev-status.png)](https://david-dm.org/brycebaril/through2-reduce#info=devDependencies/)
+
 `through2-reduce` is a thin wrapper around [through2](http://npm.im/through2) that works like `Array.prototype.reduce` but for streams.
 
 This is a *much* less common use-case with streams, but it can occasionally be useful to do a Reduce function on a stream.
