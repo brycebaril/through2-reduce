@@ -2,7 +2,7 @@ var test = require("tape").test
 
 var reduce = require("../")
 var spigot = require("stream-spigot")
-var concat = require("concat-stream")
+var concat = require("terminus").concat
 
 test("ctor", function (t) {
   t.plan(2)
@@ -18,7 +18,7 @@ test("ctor", function (t) {
 
   spigot({objectMode: true}, [2, 4, 8, 2, 6, 8, 10])
     .pipe(new Sum({objectMode: true}))
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true},combine))
 })
 
 test("ctor initial value", function (t) {
@@ -35,7 +35,7 @@ test("ctor initial value", function (t) {
 
   spigot({objectMode: true}, [2, 4, 8, 2, 6, 8, 10])
     .pipe(new Sum({objectMode: true}))
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true},combine))
 })
 
 test("ctor options initial value", function (t) {
@@ -52,7 +52,7 @@ test("ctor options initial value", function (t) {
 
   spigot({objectMode: true}, [2, 4, 8, 2, 6, 8, 10])
     .pipe(new Sum())
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true},combine))
 })
 
 test("use index & initial", function (t) {
@@ -70,7 +70,7 @@ test("use index & initial", function (t) {
 
   spigot({objectMode: true}, [2, 4, 8, 2, 6, 8, 10, 2])
     .pipe(mean)
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true},combine))
 })
 
 test("object", function (t) {
@@ -99,7 +99,7 @@ test("object", function (t) {
     {time: 8, widgets: 2},
     ])
     .pipe(mean)
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true},combine))
 })
 
 test("wantStrings", function (t) {
@@ -116,5 +116,5 @@ test("wantStrings", function (t) {
 
   spigot(["Cat", "Dog", "Bird", "Rabbit", "Elephant"])
     .pipe(new Sort())
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true},combine))
 })

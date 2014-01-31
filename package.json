@@ -28,7 +28,7 @@
     "tape": "~2.4.0",
     "tap": "~0.4.8",
     "stream-spigot": "~3.0.3",
-    "concat-stream": "~1.4.1"
+    "terminus": "~1.0.9"
   },
   "dependencies": {
     "through2": "~0.4.1"
