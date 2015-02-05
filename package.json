@@ -25,12 +25,12 @@
     "url": "https://github.com/brycebaril/through2-reduce/issues"
   },
   "devDependencies": {
-    "tape": "~2.4.0",
-    "tap": "~0.4.8",
-    "stream-spigot": "~3.0.3",
-    "terminus": "~1.0.9"
+    "tape": "~3.5.0",
+    "tap": "~0.5.0",
+    "stream-spigot": "~3.0.5",
+    "terminus": "~1.0.11"
   },
   "dependencies": {
-    "through2": "~0.4.1"
+    "through2": "~0.6.3"
   }
 }
