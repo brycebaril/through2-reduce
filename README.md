@@ -23,14 +23,14 @@ var reduce = require("through2-reduce")
 var sum = reduce({objectMode: true}, function (previous, current) { return previous + current })
 
 // vs. with through2:
-function combine = function (value, encoding, callback) {
+function combine (value, encoding, callback) {
   if (this.total == undefined) {
     this.total = value
     return callback()
   }
   this.total += value
 }
-function flush(callback) {
+function flush (callback) {
   this.push(this.value)
   return callback()
 }
