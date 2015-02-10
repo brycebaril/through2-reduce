@@ -3,6 +3,7 @@ var test = require("tape").test
 var reduce = require("../")
 var spigot = require("stream-spigot")
 var concat = require("terminus").concat
+var isnumber = require("isnumber")
 
 test("ctor", function (t) {
   t.plan(2)
@@ -116,5 +117,55 @@ test("wantStrings", function (t) {
 
   spigot(["Cat", "Dog", "Bird", "Rabbit", "Elephant"])
     .pipe(new Sort())
+    .pipe(concat({objectMode: true},combine))
+})
+
+test("error", function (t) {
+  t.plan(2)
+
+  var Sum = reduce.ctor(function (prev, curr) {
+    if (!isnumber(curr)) {
+      this.emit("error", new Error("Values must be numeric"))
+    }
+    return prev + parseFloat(curr)
+  })
+
+  function combine(result) {
+    t.notOk(1, "Should not complete pipeline when error")
+  }
+
+  var summer = new Sum({objectMode: true})
+  summer.on("error", function (err) {
+    t.ok(err)
+    t.equals(err.message, "Values must be numeric")
+  })
+
+  spigot({objectMode: true}, [2, 4, 8, 2, "cat", 8, 10])
+    .pipe(summer)
+    .pipe(concat({objectMode: true},combine))
+})
+
+test("throw", function (t) {
+  t.plan(2)
+
+  var Sum = reduce.ctor(function (prev, curr) {
+    if (!isnumber(curr)) {
+      throw new Error("Values must be numeric")
+    }
+    return prev + parseFloat(curr)
+  })
+
+  function combine(result) {
+    t.notOk(1, "Should not complete pipeline when error")
+  }
+
+  var summer = new Sum({objectMode: true})
+  summer.on("error", function (err) {
+    t.ok(err)
+    t.equals(err.message, "Values must be numeric")
+  })
+
+  spigot({objectMode: true}, [2, 4, 8, 2, "cat", 8, 10])
+    .pipe(summer)
     .pipe(concat({objectMode: true},combine))
 })

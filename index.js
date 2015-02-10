@@ -19,8 +19,12 @@ function ctor(options, fn, initial) {
       return callback()
     }
 
-    this._reduction = fn.call(this, this._reduction, chunk, this._index++)
-    return callback()
+    try {
+      this._reduction = fn.call(this, this._reduction, chunk, this._index++)
+    } catch (e) {
+      var err = e
+    }
+    return callback(err)
   }, function (callback) {
     this.push(this._reduction)
     callback()
