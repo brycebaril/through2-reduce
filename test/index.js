@@ -169,3 +169,28 @@ test("throw", function (t) {
     .pipe(summer)
     .pipe(concat({objectMode: true},combine))
 })
+
+test("noCatch", function (t) {
+  // Can't think of a way to test this. An error thrown from a stream seems uncatchable. To run this
+  // test please uncomment the two following comments, in the definitions of Sum and combine. If you
+  // see an uncaught exception in the output, everything works as it should.
+  t.end()
+
+  var Sum = reduce.ctor(function (prev, curr) {
+    // if (!isnumber(curr)) throw new Error("Values must be numeric")
+    return prev + parseFloat(curr)
+  })
+
+  function combine(result) {
+    // t.fail("Should not complete pipeline when error")
+  }
+
+  var summer = new Sum({objectMode: true, noCatch: true})
+  summer.on("error", function (err) {
+    t.fail("Should not emit an error event")
+  })
+
+  spigot({objectMode: true}, [2, 4, 8, 2, "cat", 8, 10])
+    .pipe(summer)
+    .pipe(concat({objectMode: true},combine))
+})
