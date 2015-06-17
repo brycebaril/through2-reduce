@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "tap test/"
+    "test": "node test/"
   },
   "repository": {
     "type": "git",
@@ -27,11 +27,11 @@
   "devDependencies": {
     "isnumber": "~1.0.0",
     "stream-spigot": "~3.0.5",
-    "tap": "~0.5.0",
-    "tape": "~3.5.0",
-    "terminus": "~1.0.11"
+    "tape": "~4.0.0",
+    "terminus": "~1.0.12"
   },
   "dependencies": {
-    "through2": "~0.6.3"
-  }
+    "through2": "~2.0.0"
+  },
+  "homepage": "https://github.com/brycebaril/through2-reduce"
 }
