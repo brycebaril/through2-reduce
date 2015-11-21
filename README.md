@@ -26,9 +26,10 @@ function combine (value, encoding, callback) {
     return callback()
   }
   this.total += value
+  return callback()
 }
 function flush (callback) {
-  this.push(this.value)
+  this.push(this.total)
   return callback()
 }
 var sum = through2({objectMode: true}, combine, flush)
