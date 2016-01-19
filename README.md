@@ -61,6 +61,13 @@ Create a Reduce *instance*
 
 Create a Reduce *class*
 
+`reduce.obj([options,] fn [,initial])`
+
+Create a Reduce *instance* that defaults to `objectMode: true`.
+
+`reduce.objCtor([options,] fn [,initial])`
+
+Just like ctor, but with `objectMode: true` defaulting to true.
 
 Options
 -------

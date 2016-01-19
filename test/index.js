@@ -103,6 +103,64 @@ test("object", function (t) {
     .pipe(concat({objectMode: true},combine))
 })
 
+test("obj", function (t) {
+  t.plan(2)
+
+  var mean = reduce.obj(function (prev, curr, index) {
+    var meanWidgets = prev.widgets - (prev.widgets - curr.widgets) / (index + 1)
+    prev.widgets = meanWidgets
+    prev.time = curr.time
+    return prev
+  }, {time: 0, widgets: 0})
+
+  function combine(result) {
+    t.equals(result.length, 1, "Only one record passed")
+    t.deepEquals(result[0], {time: 8, widgets: 5.25}, "Averaged")
+  }
+
+  spigot({objectMode: true}, [
+    {time: 1, widgets: 2},
+    {time: 2, widgets: 4},
+    {time: 3, widgets: 8},
+    {time: 4, widgets: 2},
+    {time: 5, widgets: 6},
+    {time: 6, widgets: 8},
+    {time: 7, widgets: 10},
+    {time: 8, widgets: 2},
+    ])
+    .pipe(mean)
+    .pipe(concat({objectMode: true},combine))
+})
+
+test("objCtor", function (t) {
+  t.plan(2)
+
+  var Mean = reduce.objCtor(function (prev, curr, index) {
+    var meanWidgets = prev.widgets - (prev.widgets - curr.widgets) / (index + 1)
+    prev.widgets = meanWidgets
+    prev.time = curr.time
+    return prev
+  }, {time: 0, widgets: 0})
+
+  function combine(result) {
+    t.equals(result.length, 1, "Only one record passed")
+    t.deepEquals(result[0], {time: 8, widgets: 5.25}, "Averaged")
+  }
+
+  spigot({objectMode: true}, [
+    {time: 1, widgets: 2},
+    {time: 2, widgets: 4},
+    {time: 3, widgets: 8},
+    {time: 4, widgets: 2},
+    {time: 5, widgets: 6},
+    {time: 6, widgets: 8},
+    {time: 7, widgets: 10},
+    {time: 8, widgets: 2},
+    ])
+    .pipe(new Mean)
+    .pipe(concat({objectMode: true},combine))
+})
+
 test("wantStrings", function (t) {
   t.plan(1)
 
