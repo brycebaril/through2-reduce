@@ -1,6 +1,6 @@
 {
   "name": "through2-reduce",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A through2 wrapper to emulate Array.prototype.reduce for streams.",
   "main": "index.js",
   "directories": {
