@@ -28,11 +28,11 @@
     "isnumber": "~1.0.0",
     "stream-spigot": "~3.0.5",
     "tape": "~4.0.0",
-    "terminus": "~1.0.12",
-    "xtend": "~4.0.1"
+    "terminus": "~1.0.12"
   },
   "dependencies": {
-    "through2": "~2.0.0"
+    "through2": "~2.0.0",
+    "xtend": "~4.0.1"
   },
   "homepage": "https://github.com/brycebaril/through2-reduce"
 }
