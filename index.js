@@ -14,6 +14,8 @@ function ctor(options, fn, initial) {
   }
 
   var Reduce = through2.ctor(options, function (chunk, encoding, callback) {
+    var err
+
     if (this.options.wantStrings) chunk = chunk.toString()
 
     // First chunk with no initial value set
@@ -22,10 +24,15 @@ function ctor(options, fn, initial) {
       return callback()
     }
 
-    try {
-      this._reduction = fn.call(this, this._reduction, chunk, this._index++)
-    } catch (e) {
-      var err = e
+    var args = [this._reduction, chunk, this._index++]
+    if (this.options.noCatch) {
+      this._reduction = fn.apply(this, args)
+    } else {
+      try {
+        this._reduction = fn.apply(this, args)
+      } catch (e) {
+        err = e
+      }
     }
     return callback(err)
   }, function (callback) {
